@@ -1,7 +1,7 @@
 name: Build Bazzite
 on:
   schedule:
-    - cron: "40 4 * * 1" # 4:40 utc monday
+    - cron: "10 2 * * *" # 2am-ish UTC everyday (timed against official fedora container pushes, and after 'config')
   pull_request:
     branches:
       - testing
