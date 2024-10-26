@@ -41,7 +41,7 @@ on:
         type: boolean
         default: false
 env:
-  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+  IMAGE_REGISTRY: ghcr.io/ublue-os
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -118,7 +118,7 @@ jobs:
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
           containers: ${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
-          pubkey: https://raw.githubusercontent.com/apoordev/${{ matrix.base_image_flavor }}/main/cosign.pub
+          pubkey: https://raw.githubusercontent.com/ublue-os/${{ matrix.base_image_flavor }}/main/cosign.pub
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Verify akmods image
@@ -285,7 +285,7 @@ jobs:
             org.opencontainers.image.description=Bazzite is a custom image built upon Fedora Atomic Desktops that brings the best of Linux gaming to all of your devices - including your favorite handheld.
             org.opencontainers.image.licenses=Apache-2.0
             org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=https://github.com/ublue-os/bazzite
+            org.opencontainers.image.source=https://github.com/apoordev/bazzite
             org.opencontainers.image.title=Bazzite
             org.opencontainers.image.vendor=Universal Blue
             org.opencontainers.image.url=https://bazzite.gg
