@@ -41,7 +41,7 @@ on:
         type: boolean
         default: false
 env:
-  IMAGE_REGISTRY: ghcr.io/ublue-os
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -118,7 +118,7 @@ jobs:
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
           containers: ${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
-          pubkey: https://raw.githubusercontent.com/ublue-os/${{ matrix.base_image_flavor }}/main/cosign.pub
+          pubkey: https://raw.githubusercontent.com/apoordev/${{ matrix.base_image_flavor }}/main/cosign.pub
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Verify akmods image
@@ -126,14 +126,14 @@ jobs:
         with:
           containers: akmods:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
           pubkey: https://raw.githubusercontent.com/ublue-os/akmods/main/cosign.pub
-          registry: ${{ env.IMAGE_REGISTRY }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify akmods-nvidia image
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
           containers: akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
           pubkey: https://raw.githubusercontent.com/ublue-os/akmods/main/cosign.pub
-          registry: ${{ env.IMAGE_REGISTRY }}
+          registry: ghcr.io/ublue-os
 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
@@ -168,8 +168,8 @@ jobs:
             # pull the base images used for FROM in Containerfile so
             # we can retry on that unfortunately common failure case
             sudo podman pull ${{ env.IMAGE_REGISTRY }}/${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
-            sudo podman pull ${{ env.IMAGE_REGISTRY }}/akmods:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
-            sudo podman pull ${{ env.IMAGE_REGISTRY }}/akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
+            sudo podman pull ghcr.io/ublue-os/akmods:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
+            sudo podman pull ghcr.io/ublue-os/akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
 
             # Add rechunk as well to remove this source of failure
             sudo podman pull ghcr.io/hhd-dev/rechunk:v0.8.3
@@ -388,7 +388,7 @@ jobs:
         id: registry_case
         uses: ASzc/change-string-case-action@v6
         with:
-          string: ${{ env.IMAGE_REGISTRY }}
+          string: 
 
       # Push the image to GHCR (Image Registry)
       - name: Push To GHCR
