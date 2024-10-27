@@ -1,14 +1,7 @@
-<p align="center">
-  <a href="https://bazzite.gg/"><img src="/repo_content/Bazzite_Tagline.svg?raw=true" alt="Bazzite"/></a>
-</p>
+<h3 align="center" style="font-size:60px;">Bazzite</h3>
+<h5 align="center">My personalized fork of Bazzite</h5>
 
-[![build-bazzite](https://github.com/ublue-os/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/ublue-os/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/ublue-os/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/ublue-os/bazzite/actions/workflows/build_iso.yml)
-
-# [🇺🇸](https://github.com/ublue-os/bazzite/blob/main/README.md) [🇪🇸](https://github.com/ublue-os/bazzite/blob/main/README-SPA.md) [🇮🇩](https://github.com/ublue-os/bazzite/blob/main/README-ID.md) [🇨🇳](https://github.com/ublue-os/bazzite/blob/main/README-zh-cn.md) [🇫🇷](https://github.com/ublue-os/bazzite/blob/main/README-FR.md) [🇧🇷](https://github.com/ublue-os/bazzite/blob/main/README-BR.md) [🇳🇱](https://github.com/ublue-os/bazzite/blob/main/README-NL.md)
-
-<p align="center">
-  <a href="https://download.bazzite.gg/"><img src="/repo_content/download.png?raw=true" alt="Download Bazzite"/></a>
-</p>
+[![build-bazzite](https://github.com/apoordev/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml)
 
 ---
 
@@ -21,17 +14,9 @@
   - [Features from Upstream](#features-from-upstream)
     - [Universal Blue](#universal-blue)
     - [Features from Fedora Linux (Kinoite \& Silverblue)](#features-from-fedora-linux-kinoite--silverblue)
-- [Why](#why)
-- [Showcase](#showcase)
-- [Documentation](#documentation)
 - [Custom Packages](#custom-packages)
 - [Verification](#verification)
 - [Secure Boot](#secure-boot)
-- [Contributor Metrics](#contributor-metrics)
-- [Star History](#star-history)
-- [Special Thanks](#special-thanks)
-- [Build Your Own](#build-your-own)
-- [Join The Community](#join-the-community)
 ---
 
 ## About & Features
@@ -80,9 +65,6 @@ Bazzite is built from [ublue-os/main](https://github.com/ublue-os/main) and [ubl
 Common variant available as `bazzite`, suitable for desktop computers.
 
 - Automatic updates for the OS, Flatpaks, and all Distrobox containers - powered by [ublue-update](https://github.com/ublue-os/ublue-update) and [topgrade](https://github.com/topgrade-rs/topgrade).
-
-> [!IMPORTANT]  
-> **ISOs can be downloaded from our [website](https://download.bazzite.gg), and a helpful install guide can be found [here](https://docs.bazzite.gg/General/Installation_Guide/).**
 
 Rebase from an existing upstream Fedora Atomic to this image if you want **Open Source GPU Drivers**:
 (Please note: Mesa's Open Source option for NVIDIA GPUs, NVK is still prone to errors at the time of writing, for any issues relating to NVK [please submit a report with Mesa]([url](https://docs.mesa3d.org/bugs.html)), not Ublue/Bazzite)
@@ -135,12 +117,6 @@ Variant designed for usage as an alternative to SteamOS on the Steam Deck, and f
 - Steam Deck hardware-specific services can be disabled by running `ujust disable-bios-updates` and `ujust disable-firmware-updates` in the terminal. These are automatically disabled on non-Deck hardware, and on Decks with DeckHD displays or 32GB RAM mods.
 - More information can be found [here](https://docs.bazzite.gg/Handheld_and_HTPC_edition/Steam_Gaming_Mode/) on the Bazzite Steam Deck images.
 
-> [!WARNING]  
-> **Due to an upstream bug, Bazzite cannot be used on Steam Decks with 64GB eMMC storage at this time. Upgrading the storage resolves the issue.**
-
-> [!IMPORTANT]  
-> **ISOs can be downloaded from our [website](https://download.bazzite.gg), and a helpful install guide can be found [here](https://docs.bazzite.gg/General/Installation_Guide/).**
-
 Rebase from an existing upstream Fedora Atomic to this image:
 
 ```bash
@@ -170,9 +146,6 @@ Builds with the GNOME desktop environment are available in both desktop and deck
 - Numerous optional extensions pre-installed, including [important user experience fixes](https://www.youtube.com/watch?v=nbCg9_YgKgM).
 - Automatic updates for the [Firefox GNOME theme](https://github.com/rafaelmardojai/firefox-gnome-theme) and [Thunderbird GNOME theme](https://github.com/rafaelmardojai/thunderbird-gnome-theme). <sup><sub>(If installed)</sub></sup>
 
-> [!IMPORTANT]  
-> **ISOs can be downloaded from our [website](https://download.bazzite.gg), and a helpful install guide can be found [here](https://docs.bazzite.gg/General/Installation_Guide/).**
-
 Rebase from an existing upstream Fedora Atomic to this image:
 
 ```bash
@@ -185,16 +158,11 @@ To rebase an existing ostree system to a Desktop Environment with the **Propriet
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-gnome-nvidia:stable
 ```
 
-> [!WARNING]  
-> **Due to an upstream bug, Bazzite cannot be used on Steam Decks with 64GB eMMC storage at this time.**
-
 To rebase an existing ostree system to the **Steam Deck/HTPC** release:
 
 ```bash
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-deck-gnome:stable
 ```
-
-**For users with Secure Boot enabled:** Follow our [secure boot documentation](#secure-boot) prior to rebasing.
 
 ### Features from Upstream
 
@@ -214,34 +182,6 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-deck-gnome
 - Security focused with [SELinux](https://github.com/SELinuxProject/selinux) preinstalled and configured out of the box.
 - The ability to rebase to different Fedora Atomic images, if desired, without losing user data.
 - Printing support thanks to [CUPS](https://www.cups.org/) being preinstalled.
-
-## Why
-
-Bazzite started as a project to resolve some of the issues that plague SteamOS, mainly out of date packages (despite an Arch base) and the lack of a functional package manager.
-
-Despite this project also being image-based, you are able to install any Fedora package straight from the command line. These packages will persist across updates <sub><sup>(So go ahead and install that obscure VPN software you spent an hour trying to get working in SteamOS)</sup></sub>. Additionally, Bazzite is updated multiple times a week with packages from upstream Fedora, giving you the best possible performance and latest features - all on a stable base.
-
-Bazzite ships with the latest Linux kernel and SELinux enabled by default with full support for secure boot <sub><sup>(Run `ujust enroll-secure-boot-key` and enter the password `universalblue` if prompted to enroll our key)</sup></sub> and disk encryption, making this a sensible solution for general computing. <sup><sub>(Yes, you can print from Bazzite)</sub></sup>
-
-Read the [FAQ](https://docs.bazzite.gg/General/FAQ/) for details on what makes Bazzite stand out from other Linux based operating systems.
-
-## Showcase
-
-![KDE Vapor Theme](/repo_content/desktop1.png?raw=true "KDE Vapor Theme")
-![KDE VGUI2 Theme](/repo_content/desktop2.png?raw=true "KDE VGUI2 Theme")
-![Steam Game Mode](/repo_content/gamemode.png?raw=true "Steam Game Mode")
-![Waydroid](/repo_content/waydroid.png?raw=true "Waydroid")
-![Distrobox Terminals](/repo_content/distrobox.png?raw=true "Distrobox Terminals")
-![GNOME Vapor Theme](/repo_content/gnome1.png?raw=true "GNOME Vapor Theme")
-![GNOME VGUI2 Theme](/repo_content/gnome2.png?raw=true "GNOME VGUI2 Theme")
-
-## Documentation
-
-- [Installing and Managing Applications](https://docs.bazzite.gg/Installing_and_Managing_Software/)
-- [Updates, Rollbacks, and Rebasing](https://docs.bazzite.gg/Installing_and_Managing_Software/Updates_Rollbacks_and_Rebasing/)
-- [Gaming Guide](https://docs.bazzite.gg/Gaming/)
-
-View [additional documentation](http://docs.bazzite.gg/) surrounding the project.
 
 ## Custom Packages
 
@@ -309,7 +249,7 @@ Additionally, the following packages are used from other Copr repos:
 These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/ublue-os/bazzite
+cosign verify --key cosign.pub ghcr.io/apoordev/bazzite
 ```
 
 ## Secure Boot
@@ -328,50 +268,3 @@ sudo mokutil --import secure_boot.der
 For users already on a Universal Blue image, you may instead run `ujust enroll-secure-boot-key`.
 
 If asked for a password, use `universalblue`.
-
-### Contributor Metrics
-
-![Bazzite](https://repobeats.axiom.co/api/embed/86b500d79c613015ad16f56df76c8e13f3fd98ae.svg "Repobeats analytics image")
-
-#### Star History
-
-<a href="https://star-history.com/#ublue-os/bazzite&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date" />
-  </picture>
-</a>
-
-## Special Thanks
-
-Bazzite is a community effort and wouldn't exist without everyone's support. Below are some of the people who've helped us along the way:
-
-- [rei.svg](https://github.com/reisvg) - For creating our logo and overall branding.
-- [SuperRiderTH](https://github.com/SuperRiderTH) - For creating our Steam game mode startup video.
-- [evlaV](https://gitlab.com/evlaV) - For making Valve's code available and for being [this person](https://xkcd.com/2347/).
-- [ChimeraOS](https://chimeraos.org/) - For gamescope-session and for valuable support along the way.
-- [Jovian-NixOS](https://github.com/Jovian-Experiments) - For supporting us with technical issues and for creating a similar project. Seriously, go check it out. It's our Nix-based cousin.
-- [sentry](https://copr.fedorainfracloud.org/coprs/sentry/) - For assistance with needed kernel patches and for creating the [kernel-fsync repo](https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/) we now use.
-- [nicknamenamenick](https://github.com/nicknamenamenick) - For being the MVP nearly single-handedly upkeeping our documentation and support literature, and countless cases of helping users.
-- [Steam Deck Homebrew](https://deckbrew.xyz) - For choosing to support distributions other than SteamOS despite the extra work, and a special thanks to [PartyWumpus](https://github.com/PartyWumpus) for getting Decky Loader working with SELinux for us.
-- [cyrv6737](https://github.com/cyrv6737) - For the initial inspiration and the base that became bazzite-arch.
-
-## Build Your Own
-
-Bazzite is built entirely in GitHub and creating your own custom version of it is as easy as forking this repository, adding a private signing key, and enabling GitHub actions.
-
-[Familiarize yourself](https://docs.github.com/en/actions/security-guides/encrypted-secrets) on keeping secrets in github. You'll need to [generate a new keypair](https://docs.sigstore.dev/cosign/overview/) with cosign. The public key can be in your public repo <sub><sup>(Your users need it to check the signatures)</sup></sub>, and you can paste the private key in `Settings -> Secrets -> Actions` with the name `SIGNING_SECRET`.
-
-We also ship a config for the popular [pull app](https://github.com/apps/pull) if you'd like to keep your fork in sync with upstream. Enable this app on your repo to keep track of Bazzite changes while also making your own modifications.
-
-## Join The Community
-
-- You can find us on the [Universal Blue Discord](https://discord.gg/f8MUghG5PB)
-  - View the [archive](https://www.answeroverflow.com/c/1072614816579063828/1143023993041993769) of support threads without an account.
-
-- Discuss and create user guides over at the [Universal Blue Discourse Forums](https://universal-blue.discourse.group/c/bazzite/5).
-
-- Follow Universal Blue on [Mastodon](https://fosstodon.org/@UniversalBlue).
-
-[**View the full list of Bazzite resources and social presence**](https://docs.bazzite.gg/Resources/).
