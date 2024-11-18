@@ -306,7 +306,7 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.source=https://github.com/apoordev/bazzite
             org.opencontainers.image.title=Bazzite
-            org.opencontainers.image.vendor=Universal Blue
+            org.opencontainers.image.vendor=APoorDev
             org.opencontainers.image.url=https://bazzite.gg
             org.universal-blue.pkg.kernel=<relver:kernel>
             org.universal-blue.pkg.gamescope=<relver:gamescope>
@@ -408,6 +408,7 @@ jobs:
           containers: ${{ env.IMAGE_NAME }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
           signing-secret: ${{ secrets.SIGNING_SECRET }}
+          registry: ${{ steps.registry_case.outputs.lowercase }}
           tags: ${{ steps.digest.outputs.digest }}
 
 #  generate_release:
