@@ -36,7 +36,7 @@ OTHER_NAMES = {
 }
 
 COMMITS_FORMAT = "### Commits\n| Hash | Subject |\n| --- | --- |{commits}\n\n"
-COMMIT_FORMAT = "\n| **[{short}](https://github.com/ublue-os/bazzite/commit/{hash})** | {subject} |"
+COMMIT_FORMAT = "\n| **[{short}](https://github.com/apoordev/bazzite/commit/{hash})** | {subject} |"
 
 CHANGELOG_TITLE = "{tag}: {pretty}"
 CHANGELOG_FORMAT = """\
