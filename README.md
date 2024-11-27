@@ -2,6 +2,7 @@
 <h5 align="center">My personalized fork of Bazzite</h5>
 
 [![build-bazzite](https://github.com/apoordev/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml)
+A failed build above does not mean that ALL builds failed. Click the badge above to see what builds failed.
 
 ---
 
