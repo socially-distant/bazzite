@@ -3,7 +3,7 @@
 
 [![build-bazzite](https://github.com/apoordev/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml)
 
-A failed build above does not mean that ALL builds failed. Click the badge above to see what builds failed.
+This fork is on the same update schedule as Bluefin (once per day) as opposed to the upstream Bazzite's weekly update cadence. This fork will always recieve the upstream weekly updates in addition to automatic scheduled updates. Due to Bazzite's large package base, not all automatic builds are successful. A failed build above does not mean that ALL the images in the build failed. Click the badge above and click on the latest build to see what images failed.
 
 ---
 
