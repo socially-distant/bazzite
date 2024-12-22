@@ -409,7 +409,6 @@ jobs:
           containers: ${{ env.IMAGE_NAME }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
           signing-secret: ${{ secrets.SIGNING_SECRET }}
-          registry: ${{ steps.registry_case.outputs.lowercase }}
           tags: ${{ steps.digest.outputs.digest }}
           registry: ${{ env.PUSH_IMAGE_REGISTRY }}
 
