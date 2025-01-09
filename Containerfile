@@ -502,6 +502,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
         yafti \
         stress-ng \
         btrfs-assistant \
+        podman-compose \
         edk2-ovmf \
         qemu \
         libvirt \
@@ -654,8 +655,6 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
         rpm-ostree override replace \
         --experimental \
         --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-            mutter \
-            mutter-common \
             gnome-shell && \
         rpm-ostree install \
             nautilus-gsconnect \
@@ -736,6 +735,8 @@ RUN rm -f /etc/profile.d/toolbox.sh && \
     cp --no-dereference --preserve=links /usr/lib/libdrm.so.2 /usr/lib/libdrm.so && \
     cp --no-dereference --preserve=links /usr/lib64/libdrm.so.2 /usr/lib64/libdrm.so && \
     sed -i 's@/usr/bin/steam@/usr/bin/bazzite-steam@g' /usr/share/applications/steam.desktop && \
+    echo "Replace steam BPM shortcut action" && \
+    sed -i 's@Exec=steam steam://open/bigpicture@Exec=/usr/bin/bazzite-steam-bpm@g' /usr/share/applications/steam.desktop && \
     mkdir -p /etc/skel/.config/autostart/ && \
     cp "/usr/share/applications/steam.desktop" "/etc/skel/.config/autostart/steam.desktop" && \
     sed -i 's@/usr/bin/bazzite-steam %U@/usr/bin/bazzite-steam -silent %U@g' /etc/skel/.config/autostart/steam.desktop && \
@@ -960,7 +961,8 @@ RUN /usr/libexec/containerbuild/image-info && \
     sed -i 's@Exec=waydroid first-launch@Exec=/usr/bin/waydroid-launcher first-launch\nX-Steam-Library-Capsule=/usr/share/applications/Waydroid/capsule.png\nX-Steam-Library-Hero=/usr/share/applications/Waydroid/hero.png\nX-Steam-Library-Logo=/usr/share/applications/Waydroid/logo.png\nX-Steam-Library-StoreCapsule=/usr/share/applications/Waydroid/store-logo.png\nX-Steam-Controller-Template=Desktop@g' /usr/share/applications/Waydroid.desktop && \
     if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
         sed -i 's/Exec=.*/Exec=systemctl start return-to-gamemode.service/' /etc/skel/Desktop/Return.desktop && \
-        rm -f /usr/share/applications/com.github.maliit.keyboard.desktop \
+        mkdir -p /usr/share/ublue-os/backup && \
+        mv /usr/share/applications/com.github.maliit.keyboard.desktop /usr/share/ublue-os/backup/com.github.maliit.keyboard.desktop \
     ; fi && \
     sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nNoDisplay=true@g' /usr/share/applications/input-remapper-gtk.desktop && \
     cp "/usr/share/ublue-os/firstboot/yafti.yml" "/etc/yafti.yml" && \
