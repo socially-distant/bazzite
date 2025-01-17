@@ -374,8 +374,6 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
 # Install patched switcheroo control with proper discrete GPU support
 # Tempporary fix for GPU Encoding
 RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
-    rpm-ostree install \
-        mesa-dri-drivers.i686 && \
     mkdir -p /tmp/mesa-fix64/dri && \
     cp /usr/lib64/libgallium-*.so /tmp/mesa-fix64/ && \
     cp /usr/lib64/dri/kms_swrast_dri.so /tmp/mesa-fix64/dri/ && \
@@ -393,7 +391,6 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     --from repo=copr:copr.fedorainfracloud.org:kylegospo:bazzite-multilib \
         mesa-libxatracker \
         mesa-libglapi \
-        mesa-dri-drivers \
         mesa-libgbm \
         mesa-libEGL \
         mesa-vulkan-drivers \
