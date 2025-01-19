@@ -1,7 +1,7 @@
 <h3 align="center" style="font-size:60px;">Bazzite</h3>
 <h5 align="center">My personalized fork of Bazzite</h5>
 
-[![build-bazzite](https://github.com/apoordev/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/apoordev/bazzite/actions/workflows/build_iso.yml)
+[![build-bazzite](https://github.com/socially-distant/bazzite/actions/workflows/build.yml/badge.svg)](https://github.com/socially-distant/bazzite/actions/workflows/build.yml) [![build-bazzite-isos](https://github.com/socially-distant/bazzite/actions/workflows/build_iso.yml/badge.svg)](https://github.com/socially-distant/bazzite/actions/workflows/build_iso.yml)
 
 ---
 
@@ -248,7 +248,7 @@ Additionally, the following packages are used from other Copr repos:
 These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/apoordev/bazzite
+cosign verify --key cosign.pub ghcr.io/socially-distant/bazzite
 ```
 
 ## Secure Boot
