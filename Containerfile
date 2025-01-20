@@ -314,10 +314,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
         curl -Lo /etc/yum.repos.d/_copr_lukenukem-asus-linux.repo https://copr.fedorainfracloud.org/coprs/lukenukem/asus-linux/repo/fedora-$(rpm -E %fedora)/lukenukem-asus-linux-fedora-$(rpm -E %fedora).repo && \
         rpm-ostree install \
             asusctl \
-            asusctl-rog-gui && \
-        git clone https://gitlab.com/asus-linux/firmware.git --depth 1 /tmp/asus-firmware && \
-        cp -rf /tmp/asus-firmware/* /usr/lib/firmware/ && \
-        rm -rf /tmp/asus-firmware \
+            asusctl-rog-gui \
     ; elif [[ "${IMAGE_FLAVOR}" == "surface" ]]; then \
         curl -Lo /etc/yum.repos.d/linux-surface.repo https://pkg.surfacelinux.com/fedora/linux-surface.repo && \
         rpm-ostree override remove \
@@ -374,6 +371,8 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
 # Install patched switcheroo control with proper discrete GPU support
 # Tempporary fix for GPU Encoding
 RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
+    rpm-ostree install \
+        mesa-dri-drivers.i686 && \
     mkdir -p /tmp/mesa-fix64/dri && \
     cp /usr/lib64/libgallium-*.so /tmp/mesa-fix64/ && \
     cp /usr/lib64/dri/kms_swrast_dri.so /tmp/mesa-fix64/dri/ && \
@@ -391,6 +390,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     --from repo=copr:copr.fedorainfracloud.org:kylegospo:bazzite-multilib \
         mesa-libxatracker \
         mesa-libglapi \
+        mesa-dri-drivers \
         mesa-libgbm \
         mesa-libEGL \
         mesa-vulkan-drivers \
@@ -763,7 +763,6 @@ RUN rm -f /etc/profile.d/toolbox.sh && \
     echo "import \"/usr/share/ublue-os/just/84-bazzite-virt.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/85-bazzite-image.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/86-bazzite-windows.just\"" >> /usr/share/ublue-os/justfile && \
-    echo "import \"/usr/share/ublue-os/just/85-bluefin-tools.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/90-bazzite-de.just\"" >> /usr/share/ublue-os/justfile && \
     if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
       systemctl enable usr-share-sddm-themes.mount && \
@@ -898,6 +897,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     rpm-ostree install \
     jupiter-fan-control \
     jupiter-hw-support-btrfs \
+    galileo-mura \
     steamdeck-dsp \
     powerbuttond \
     hhd \
