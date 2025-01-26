@@ -508,6 +508,7 @@ RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
         edk2-ovmf \
         qemu \
         libvirt \
+        spice-gtk-tools \
         lsb_release && \
     rpm-ostree install \
         ublue-update && \
