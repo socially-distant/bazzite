@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-set -oue pipefail
+set -eoux pipefail
 
 echo "::group::Executing build-initramfs"
 trap 'echo "::endgroup::"' EXIT
