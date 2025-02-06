@@ -23,7 +23,8 @@
 
 This is a fork of the upstream [bazzite](https://bazzite.gg/) project with some additional changes. This repo builds images weekly. Not all image builds are successfull and any failed builds will stick to the previously published image. This fork also adds the following features:
 
-- Adds back konsole
+- Add back konsole
+- Add virt-manager (flatpak version has usb redirection issue)
 - Socially Distant Logos
 
 [Bazzite](https://bazzite.gg/) is an OCI image that serves as an alternative operating system for the [Steam Deck](https://www.steamdeck.com/), and a ready-to-game SteamOS-like for desktop computers and living room home theater PCs.
