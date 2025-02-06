@@ -267,6 +267,7 @@ RUN --mount=type=cache,dst=/var/cache/libdnf5 \
         edk2-ovmf \
         qemu \
         libvirt \
+        virt-manager \
         lsb_release \
         ublue-update \
         waydroid \
