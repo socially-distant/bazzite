@@ -268,6 +268,7 @@ RUN --mount=type=cache,dst=/var/cache/libdnf5 \
         qemu \
         libvirt \
         virt-manager \
+        python3-ramalama \
         lsb_release \
         ublue-update \
         waydroid \
