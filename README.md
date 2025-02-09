@@ -23,6 +23,7 @@
 
 This is a fork of the upstream [bazzite](https://bazzite.gg/) project with some additional changes. This repo builds images weekly. Not all image builds are successfull and any failed builds will stick to the previously published image. This fork also adds the following features:
 
+- Added Reboot Enforcement Notification for Security Advisory Patches
 - Add back konsole
 - Add virt-manager (flatpak version has usb redirection issue)
 - Add RamaLama
