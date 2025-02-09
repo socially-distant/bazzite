@@ -1,5 +1,5 @@
 # vim: set ft=make :
 
-# Enable BTRFS deduplication
+# Security Advisory Reboot Enforcement
 enable-advisory-reboot-prompt:
     systemctl enable --now --user rpm-ostree-advisory-notifier.timer
