@@ -306,6 +306,7 @@ RUN --mount=type=cache,dst=/var/cache/libdnf5 \
         snapper \
         btrfs-assistant \
         podman-compose \
+        podman-docker \
         edk2-ovmf \
         qemu \
         libvirt \

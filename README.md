@@ -27,6 +27,7 @@ This is a fork of the upstream [bazzite](https://bazzite.gg/) project with some 
 - Add back konsole
 - Add virt-manager (flatpak version has usb redirection issue)
 - Add RamaLama
+- Add podman-docker
 - Socially Distant Logos
 
 [Bazzite](https://bazzite.gg/) is a custom [Fedora Atomic](https://fedoraproject.org/atomic-desktops/) image built with [cloud native](https://universal-blue.org/#cloud-native) technology that brings the best of Linux gaming to **all of your devices - including your favorite handheld**.
