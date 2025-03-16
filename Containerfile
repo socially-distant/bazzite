@@ -294,7 +294,7 @@ RUN --mount=type=cache,dst=/var/cache/libdnf5 \
         fastfetch \
         glow \
         gum \
-        vim \
+        neovim \
         cockpit-networkmanager \
         cockpit-podman \
         cockpit-selinux \
