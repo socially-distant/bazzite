@@ -26,6 +26,7 @@ This is a fork of the upstream [bazzite](https://bazzite.gg/) project with some 
 - Added Reboot Enforcement Notification for Security Advisory Patches
 - Add back konsole
 - Add virt-manager (flatpak version has usb redirection issue)
+- Add remmina (flatpak version has home foler sharing issue)
 - Add RamaLama
 - Add podman-docker
 - Replace vim with neovim
