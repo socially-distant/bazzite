@@ -76,21 +76,18 @@ Rebase from an existing upstream Fedora Atomic to this image if you want **Open 
 (Please note: Mesa's Open Source option for NVIDIA GPUs, NVK is still prone to errors at the time of writing, for any issues relating to NVK [please submit a report with Mesa]([url](https://docs.mesa3d.org/bugs.html)), not Ublue/Bazzite)
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite:stable
 ```
 
 or for devices with Nvidia GPUs wanting the **NVIDIA Proprietary Drivers**:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-nvidia:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite-nvidia:stable
 ```
 
 **For users with Secure Boot enabled:** Follow our [secure boot documentation](#secure-boot) prior to rebasing.
 
 ### Steam Deck/Home Theater PCs (HTPCs)
-> [!IMPORTANT]
-Devices that are NOT the Steam Deck can still use the `bazzite-deck` images, but must use a modern AMD GPU. Intel Arc GPUs also have been confirmed to work.
-
 Variant designed for usage as an alternative to SteamOS on the Steam Deck, and for a console-like experience on HTPCs, available as `bazzite-deck`:
 
 - Directly boots to Game mode matching SteamOS's behavior.
@@ -123,10 +120,13 @@ Variant designed for usage as an alternative to SteamOS on the Steam Deck, and f
 - Steam Deck hardware-specific services can be disabled by running `ujust disable-bios-updates` and `ujust disable-firmware-updates` in the terminal. These are automatically disabled on non-Deck hardware, and on Decks with DeckHD displays or 32GB RAM mods.
 - More information can be found [here](https://docs.bazzite.gg/Handheld_and_HTPC_edition/Steam_Gaming_Mode/) on the Bazzite Steam Deck images.
 
+> [!IMPORTANT]
+> **ISOs can be downloaded from our [website](https://download.bazzite.gg), and a helpful install guide can be found [here](https://docs.bazzite.gg/General/Installation_Guide/).**
+
 Rebase from an existing upstream Fedora Atomic to this image:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-deck:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite-deck:stable
 ```
 
 #### Alternative Handhelds
@@ -155,19 +155,19 @@ Builds with the GNOME desktop environment are available in both desktop and deck
 Rebase from an existing upstream Fedora Atomic to this image:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-gnome:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite-gnome:stable
 ```
 
 To rebase an existing ostree system to a Desktop Environment with the **Proprietary NVIDIA Drivers** release:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-gnome-nvidia:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite-gnome-nvidia:stable
 ```
 
 To rebase an existing ostree system to the **Steam Deck/HTPC** release:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-deck-gnome:stable
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/socially-distant/bazzite-deck-gnome:stable
 ```
 
 ### Features from Upstream

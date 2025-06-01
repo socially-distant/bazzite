@@ -141,6 +141,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
+    dnf5 -y swap atheros-firmware atheros-firmware-20250311-1$(rpm -E %{dist}) && \
     if [[ "${IMAGE_FLAVOR}" =~ "asus" ]]; then \
         dnf5 -y copr enable lukenukem/asus-linux && \
         dnf5 -y install \
@@ -456,6 +457,7 @@ RUN --mount=type=cache,dst=/var/cache \
         dnf5 -y swap \
         --repo copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib \
             mutter mutter && \
+        : "DELETEME: fix mutter breaking flatpaks" && dnf5 -y swap mutter mutter-0:48.1-1.fc42 && \
         dnf5 versionlock add \
             mutter && \
         dnf5 -y install \
