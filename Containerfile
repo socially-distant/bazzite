@@ -232,7 +232,6 @@ RUN --mount=type=cache,dst=/var/cache \
         firefox \
         firefox-langpacks \
         htop && \
-    	dnf5 -y swap kde-partitionmanager gnome-disk-utility && \
     /ctx/cleanup
 
 # Install new packages
@@ -241,6 +240,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     dnf5 -y install \
+        iwd \
         twitter-twemoji-fonts \
         google-noto-sans-cjk-fonts \
         lato-fonts \
@@ -427,6 +427,7 @@ RUN --mount=type=cache,dst=/var/cache \
             fcitx5-chinese-addons \
             fcitx5-hangul \
             kcm-fcitx5 \
+            gnome-disk-utility \
             ptyxis && \
         dnf5 -y swap \
         --repo=terra-extras \
@@ -443,7 +444,9 @@ RUN --mount=type=cache,dst=/var/cache \
             plasma-welcome \
             plasma-welcome-fedora \
             plasma-browser-integration \
-            kcharselect && \
+            kcharselect \
+            kde-partitionmanager \
+            konsole && \
         sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,applications:steam.desktop,applications:net.lutris.Lutris.desktop,applications:org.gnome.Ptyxis.desktop,applications:org.kde.discover.desktop,preferred:\/\/filemanager<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
         sed -i '/<entry name="favorites" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,steam.desktop,net.lutris.Lutris.desktop,systemsettings.desktop,org.kde.dolphin.desktop,org.kde.kate.desktop,org.gnome.Ptyxis.desktop,org.kde.discover.desktop,system-update.desktop<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml && \
         sed -i 's@\[Desktop Action new-window\]@\[Desktop Action new-window\]\nX-KDE-Shortcuts=Ctrl+Alt+T@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
@@ -915,7 +918,7 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 -y install \
         mesa-vdpau-drivers.x86_64 \
         mesa-vdpau-drivers.i686 && \
-    curl -Lo /tmp/nvidia-install.sh https://raw.githubusercontent.com/ublue-os/main/525e900bf8b3327e3738574a54089acb963a4d3e/build_files/nvidia-install.sh && \
+    curl -Lo /tmp/nvidia-install.sh https://raw.githubusercontent.com/ublue-os/main/refs/heads/main/build_files/nvidia-install.sh && \
     chmod +x /tmp/nvidia-install.sh && \
     IMAGE_NAME="${BASE_IMAGE_NAME}" /tmp/nvidia-install.sh && \
     rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json && \
