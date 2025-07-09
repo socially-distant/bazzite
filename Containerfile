@@ -92,9 +92,8 @@ RUN --mount=type=cache,dst=/var/cache \
         hhd-dev/hhd \
         che/nerd-fonts \
         hikariknight/looking-glass-kvmfr \
-        mavit/discover-overlay \
         rok/cdemu \
-        lizardbyte/beta; \
+        lizardbyte/stable; \
     do \
         echo "Enabling copr: $copr"; \
         dnf5 -y copr enable $copr; \
@@ -240,13 +239,13 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     dnf5 -y install \
+        bazaar \
         iwd \
         twitter-twemoji-fonts \
         google-noto-sans-cjk-fonts \
         lato-fonts \
         fira-code-fonts \
         nerd-fonts \
-        discover-overlay \
         sunshine \
         python3-pip \
         libadwaita \
@@ -259,6 +258,7 @@ RUN --mount=type=cache,dst=/var/cache \
         ryzenadj \
         ddcutil \
         input-remapper \
+        libinput-utils \
         i2c-tools \
         lm_sensors \
         fw-ectool \
@@ -428,6 +428,7 @@ RUN --mount=type=cache,dst=/var/cache \
             fcitx5-hangul \
             kcm-fcitx5 \
             gnome-disk-utility \
+            krunner-bazaar \
             ptyxis && \
         dnf5 -y swap \
         --repo=terra-extras \
@@ -445,15 +446,19 @@ RUN --mount=type=cache,dst=/var/cache \
             plasma-welcome-fedora \
             plasma-discover-kns \
             kcharselect \
-            kde-partitionmanager && \
-        sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,applications:steam.desktop,applications:net.lutris.Lutris.desktop,applications:org.gnome.Ptyxis.desktop,applications:org.kde.discover.desktop,preferred:\/\/filemanager<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
-        sed -i '/<entry name="favorites" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,steam.desktop,net.lutris.Lutris.desktop,systemsettings.desktop,org.kde.dolphin.desktop,org.kde.kate.desktop,org.gnome.Ptyxis.desktop,org.kde.discover.desktop,system-update.desktop<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml && \
+            kde-partitionmanager \
+            plasma-discover && \
+        sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,applications:steam.desktop,applications:net.lutris.Lutris.desktop,applications:org.gnome.Ptyxis.desktop,applications:io.github.kolunmi.Bazaar.desktop,preferred:\/\/filemanager<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+        sed -i '/<entry name="favorites" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,steam.desktop,net.lutris.Lutris.desktop,systemsettings.desktop,org.kde.dolphin.desktop,org.kde.kate.desktop,org.gnome.Ptyxis.desktop,io.github.kolunmi.Bazaar.desktop,system-update.desktop<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml && \
         sed -i 's@\[Desktop Action new-window\]@\[Desktop Action new-window\]\nX-KDE-Shortcuts=Ctrl+Alt+T@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i '/^Comment/d' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i 's@Exec=ptyxis@Exec=kde-ptyxis@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i 's@Keywords=@Keywords=konsole;console;@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         cp /usr/share/applications/org.gnome.Ptyxis.desktop /usr/share/kglobalaccel/org.gnome.Ptyxis.desktop && \
-        setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper \
+        setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper && \
+        ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default.jxl && \
+        ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default-dark.jxl && \
+        rm -f /usr/share/backgrounds/default.xml \
     ; else \
         dnf5 -y swap \
         --repo terra-extras \
@@ -488,6 +493,7 @@ RUN --mount=type=cache,dst=/var/cache \
             openssh-askpass \
             firewall-config && \
         dnf5 -y remove \
+            gnome-software \
             gnome-classic-session \
             gnome-tour \
             gnome-extensions-app \
@@ -548,10 +554,6 @@ RUN --mount=type=cache,dst=/var/cache \
     sed -i "s/^SCX_SCHEDULER=.*/SCX_SCHEDULER=scx_bpfland/" /etc/default/scx && \
     sed -i "s|grub_probe\} --target=device /\`|grub_probe} --target=device /sysroot\`|g" /usr/bin/grub2-mkconfig && \
     rm -f /usr/lib/systemd/system/service.d/50-keep-warm.conf && \
-    mkdir -p "/etc/xdg/autostart" && \
-    cp "/usr/share/applications/discover_overlay.desktop" "/etc/xdg/autostart/discover_overlay.desktop" && \
-    sed -i 's@Exec=discover-overlay@Exec=/usr/bin/bazzite-discover-overlay@g' /etc/xdg/autostart/discover_overlay.desktop && \
-    sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nNoDisplay=true@g' /usr/share/applications/discover_overlay.desktop && \
     echo "import \"/usr/share/ublue-os/just/80-bazzite.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/81-bazzite-fixes.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/82-bazzite-apps.just\"" >> /usr/share/ublue-os/justfile && \
@@ -565,6 +567,7 @@ RUN --mount=type=cache,dst=/var/cache \
     echo "import \"/usr/share/ublue-os/just/86-bazzite-windows.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/87-bazzite-framegen.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/88-bazzite-webapps.just\"" >> /usr/share/ublue-os/justfile && \
+    echo "import \"/usr/share/ublue-os/just/89-bazzite-mesa-git.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/90-bazzite-picker.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/90-bazzite-de.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/99-sdtools.just\"" >> /usr/share/ublue-os/justfile && \
@@ -612,8 +615,7 @@ RUN --mount=type=cache,dst=/var/cache \
         bazzite-org/webapp-manager \
         hhd-dev/hhd \
         che/nerd-fonts \
-        mavit/discover-overlay \
-        lizardbyte/beta \
+        lizardbyte/stable \
         rok/cdemu \
         hikariknight/looking-glass-kvmfr; \
     do \
@@ -719,6 +721,9 @@ RUN --mount=type=cache,dst=/var/cache \
             steamdeck-gnome-presets \
             gnome-shell-extension-caribou-blocker \
             sddm && \
+        ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default.jxl && \
+        ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default-dark.jxl && \
+        rm -f /usr/share/backgrounds/default.xml && \
         dnf5 -y remove \
             malcontent-control \
     ; fi && \
@@ -929,6 +934,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
+    sed -i 's|^Exec=bazaar window --auto-service$|Exec=env GSK_RENDERER=opengl bazaar window --auto-service|' /usr/share/applications/io.github.kolunmi.Bazaar.desktop && \
     echo "import \"/usr/share/ublue-os/just/95-bazzite-nvidia.just\"" >> /usr/share/ublue-os/justfile && \
     if grep -q "silverblue" <<< "${BASE_IMAGE_NAME}"; then \
       mkdir -p "/usr/share/ublue-os/dconfs/nvidia-silverblue/" && \
