@@ -483,11 +483,6 @@ RUN --mount=type=cache,dst=/var/cache \
             gnome-shell gnome-shell && \
         dnf5 versionlock add \
             gnome-shell && \
-        dnf5 -y swap \
-        --repo copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib \
-            mutter mutter && \
-        dnf5 versionlock add \
-            mutter && \
         dnf5 -y install \
             nautilus-gsconnect \
             steamdeck-backgrounds \
@@ -935,9 +930,6 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=secret,id=GITHUB_TOKEN \
     dnf5 config-manager setopt "terra-mesa".enabled=1 && \
     dnf5 -y copr enable ublue-os/staging && \
-    dnf5 -y install \
-        mesa-vdpau-drivers.x86_64 \
-        mesa-vdpau-drivers.i686 && \
     dnf5 -y install \
         egl-wayland.x86_64 \
         egl-wayland.i686 \
