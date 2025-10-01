@@ -6,9 +6,9 @@ rules:
     mergeUnstable: false
     assignees:
       - apoordev
-#  - base: testing
-#    upstream: ublue-os:testing
-#    mergeMethod: merge
-#    mergeUnstable: false
-#    assignees:
-#      - apoordev
+  - base: testing
+    upstream: ublue-os:testing
+    mergeMethod: merge
+    mergeUnstable: false
+    assignees:
+      - apoordev
