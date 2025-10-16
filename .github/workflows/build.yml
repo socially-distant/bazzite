@@ -4,7 +4,6 @@ on:
     - cron: "30 2 * * *" # 2:30am UTC everyday (timed against ublue akmods container pushes)
   pull_request:
     branches:
-      - testing
       - unstable
     paths-ignore:
       - "**.md"
