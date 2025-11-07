@@ -653,9 +653,8 @@ RUN --mount=type=cache,dst=/var/cache \
         galileo-mura \
         steamdeck-dsp \
         powerbuttond \
-        hhd \
+        $([[ "$IMAGE_BRANCH" == "testing" || "$IMAGE_BRANCH" == "unstable" ]] && echo "hhd-git" || echo "hhd") \
         hhd-ui \
-        adjustor \
         acpica-tools \
         vpower \
         steam_notif_daemon \
