@@ -275,7 +275,6 @@ RUN --mount=type=cache,dst=/var/cache \
         python3-ramalama \
         lsb_release \
         uupd \
-        ds-inhibit \
         rocm-hip \
         rocm-opencl \
         rocm-clinfo \
@@ -575,7 +574,6 @@ RUN --mount=type=cache,dst=/var/cache \
     systemctl enable bazzite-hardware-setup.service && \
     systemctl disable tailscaled.service && \
     systemctl enable dev-hugepages1G.mount && \
-    systemctl enable ds-inhibit.service && \
     systemctl --global enable bazzite-user-setup.service && \
     systemctl --global enable podman.socket && \
     systemctl --global enable systemd-tmpfiles-setup.service && \
@@ -653,8 +651,9 @@ RUN --mount=type=cache,dst=/var/cache \
         galileo-mura \
         steamdeck-dsp \
         powerbuttond \
-        $([[ "$IMAGE_BRANCH" == "testing" || "$IMAGE_BRANCH" == "unstable" ]] && echo "hhd-git" || echo "hhd") \
+        $([[ "$IMAGE_BRANCH" == "unstable" || "$IMAGE_BRANCH" == "testing" ]] && echo "hhd-git" || echo "hhd") \
         hhd-ui \
+        steamos-manager \
         acpica-tools \
         vpower \
         steam_notif_daemon \
@@ -743,6 +742,7 @@ RUN --mount=type=cache,dst=/var/cache \
     rm -r /tmp/bazzite-schema-test && \
     { rm -v /usr/share/applications/bazzite-steam-bpm.desktop || true; } && \
     systemctl enable hhd.service && \
+    systemctl enable --global steamos-manager.service && \
     systemctl enable bazzite-autologin.service && \
     systemctl enable wireplumber-workaround.service && \
     systemctl enable wireplumber-sysconf.service && \
