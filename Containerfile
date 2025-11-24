@@ -137,6 +137,8 @@ RUN --mount=type=cache,dst=/var/cache \
 # Install Valve's patched Mesa, Pipewire, Bluez, and Xwayland
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
+    dnf5 -y remove \
+        pipewire-config-raop && \
     declare -A toswap=( \
         ["copr:copr.fedorainfracloud.org:bazzite-org:bazzite"]="wireplumber" \
         ["copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib"]="pipewire bluez xorg-x11-server-Xwayland" \
@@ -388,7 +390,6 @@ RUN --mount=type=cache,dst=/var/cache \
             kcharselect \
             kde-partitionmanager \
             plasma-discover && \
-        sed -i 's|Exec=ptyxis|Exec=env GTK_IM_MODULE=ibus ptyxis|g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,applications:steam.desktop,applications:net.lutris.Lutris.desktop,applications:org.gnome.Ptyxis.desktop,applications:io.github.kolunmi.Bazaar.desktop,preferred:\/\/filemanager<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
         sed -i 's@\[Desktop Action new-window\]@\[Desktop Action new-window\]\nX-KDE-Shortcuts=Ctrl+Alt+T@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i '/^Comment/d' /usr/share/applications/org.gnome.Ptyxis.desktop && \
@@ -580,14 +581,15 @@ RUN --mount=type=cache,dst=/var/cache \
     /ctx/ghcurl "https://raw.githubusercontent.com/doitsujin/dxvk/master/dxvk.conf" -Lo /etc/dxvk-example.conf && \
     /ctx/ghcurl "https://raw.githubusercontent.com/bazzite-org/waydroid-scripts/main/waydroid-choose-gpu.sh" -Lo /usr/bin/waydroid-choose-gpu && \
     chmod +x /usr/bin/waydroid-choose-gpu && \
+    dnf5 config-manager setopt skip_if_unavailable=1 && \
     /ctx/ghcurl "https://github.com/ublue-os/toolboxes/raw/refs/heads/main/apps/docker/distrobox.ini" -Lo /etc/distrobox/docker.ini && \
     /ctx/ghcurl "https://github.com/ublue-os/toolboxes/raw/refs/heads/main/apps/incus/distrobox.ini" -Lo /etc/distrobox/incus.ini && \
     /ctx/image-info && \
     /ctx/build-initramfs && \
-    /ctx/finalize
+    /ctx/finalize && \
+    rm -rf /ctx
 
-RUN dnf5 config-manager setopt skip_if_unavailable=1 && \
-    bootc container lint
+RUN bootc container lint
 
 ################
 # DECK BUILDS
@@ -602,6 +604,7 @@ ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG VERSION_TAG="${VERSION_TAG}"
 ARG VERSION_PRETTY="${VERSION_PRETTY}"
 
+COPY ./build_files/cleanup ./build_files/image-info ./build_files/ghcurl ./build_files/build-initramfs ./build_files/finalize /ctx/
 COPY system_files/deck/shared system_files/deck/${BASE_IMAGE_NAME} /
 
 # Setup Copr repos
@@ -759,13 +762,13 @@ RUN --mount=type=cache,dst=/var/cache \
     systemctl disable vpower.service && \
     systemctl disable jupiter-biosupdate.service && \
     systemctl disable jupiter-controller-update.service && \
-    systemctl disable batterylimit.service && \
+    dnf5 config-manager setopt skip_if_unavailable=1 && \
     /ctx/image-info && \
     /ctx/build-initramfs && \
-    /ctx/finalize
+    /ctx/finalize && \
+    rm -rf /ctx
 
-RUN dnf5 config-manager setopt skip_if_unavailable=1 && \
-    rm -rf /ctx && bootc container lint
+RUN bootc container lint
 
 ################
 # NVIDIA BUILDS
@@ -831,12 +834,10 @@ RUN --mount=type=cache,dst=/var/cache \
     glib-compile-schemas /usr/share/glib-2.0/schemas &>/dev/null && \
     rm -r /tmp/bazzite-schema-test && \
     systemctl disable supergfxd.service && \
+    dnf5 config-manager setopt skip_if_unavailable=1 && \
     /ctx/image-info && \
     /ctx/build-initramfs && \
-    /ctx/finalize
+    /ctx/finalize && \
+    rm -rf /ctx 
 
-RUN dnf5 config-manager setopt skip_if_unavailable=1 && \
-    rm -rf /ctx && bootc container lint
-
-# Make yafti launcher script executable
-RUN chmod +x /usr/libexec/bazzite-yafti-launcher
+RUN bootc container lint

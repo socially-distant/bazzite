@@ -45,7 +45,6 @@ Bazzite is built from [ublue-os/main](https://github.com/ublue-os/main) and [ubl
 - Includes Valve's KDE themes from SteamOS.
 - [LatencyFleX](https://github.com/ishitatsuyuki/LatencyFleX), [vkBasalt](https://github.com/DadSchoorse/vkBasalt), [MangoHud](https://github.com/flightlessmango/Mangohud), and [OBS VkCapture](https://github.com/nowrep/obs-vkcapture) installed and available by default
 - [Patched Switcheroo-Control](https://copr.fedorainfracloud.org/coprs/sentry/switcheroo-control_discrete/) fixing default-broken iGPU/dGPU switching.
-- Support for [Wallpaper Engine](https://www.wallpaperengine.io/en). <sub><sup>(Only on KDE)</sup></sub>
 - [ROM Properties Page shell extension](https://github.com/GerbilSoft/rom-properties) included.
 - Full support for [Winesync/Fastsync/NTsync](https://github.com/Frogging-Family/wine-tkg-git/issues/936).
 - [Distrobox](https://github.com/89luca89/distrobox) preinstalled.
@@ -114,7 +113,6 @@ Variant designed for usage as an alternative to SteamOS on the Steam Deck, and f
 - Color calibrated display profiles for matte and reflective Steam Deck screens included.
 - Default-disabled power-user features, including:
     - Service for low-risk undervolting of the Steam Deck as well as AMD Framework Laptops via [RyzenAdj](https://github.com/FlyGoat/RyzenAdj) and [Ryzen SMU](https://gitlab.com/leogx9r/ryzen_smu), see `ryzenadj.service` and `/etc/default/ryzenadj`.
-    - Service for limiting the max charge level of the battery, see `batterylimit.service` and `/etc/default/batterylimit`. <sup><sub>(Works even when the device is off)</sub></sup>
     - Built in support for display overclocking. For example, add `CUSTOM_REFRESH_RATES=30-68` to `/etc/environment`. Minimum and maximum refresh rates differ per handheld!
     - 32GB RAM mod your Steam Deck? Enjoy double the maximum VRAM amount, automatically applied. <sup><sub>(Can you share your soldering skills?)</sub></sup>
 - Steam Deck hardware-specific services can be disabled by running `ujust disable-bios-updates` and `ujust disable-firmware-updates` in the terminal. These are automatically disabled on non-Deck hardware, and on Decks with DeckHD displays or 32GB RAM mods.
