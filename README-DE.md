@@ -14,14 +14,14 @@
 
 # Inhaltsverzeichnis
 
-- [🇺🇸 🇪🇸 🇮🇩 🇨🇳 🇫🇷 🇧🇷 🇳🇱 🇷🇺 🇩🇪](#------)
+- [🇺🇸 🇪🇸 🇮🇩 🇨🇳 🇫🇷 🇧🇷 🇳🇱 🇷🇺 🇩🇪](#--------)
 - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [Über \& Funktionen](#über--funktionen)
     - [Desktop](#desktop)
     - [Steam Deck/Home Theater PCs (HTPCs)](#steam-deckhome-theater-pcs-htpcs)
       - [Alternative Handhelds](#alternative-handhelds)
     - [GNOME](#gnome)
-    - [Funktionen vom Upstream](#funktionen-von-upstream)
+    - [Funktionen von Upstream](#funktionen-von-upstream)
       - [Universal Blue](#universal-blue)
       - [Funktionen von Fedora Linux (Kinoite \& Silverblue)](#funktionen-von-fedora-linux-kinoite--silverblue)
   - [Warum](#warum)
@@ -55,7 +55,6 @@ Bazzite basiert auf [ublue-os/main](https://github.com/ublue-os/main) und [ublue
 - Enthält Valves KDE-Designs von SteamOS.
 - [LatencyFleX](https://github.com/ishitatsuyuki/LatencyFleX), [vkBasalt](https://github.com/DadSchoorse/vkBasalt), [MangoHud](https://github.com/flightlessmango/Mangohud) und [OBS VkCapture](https://github.com/nowrep/obs-vkcapture) standardmäßig installiert und verfügbar.
 - [Patched Switcheroo-Control](https://copr.fedorainfracloud.org/coprs/sentry/switcheroo-control_discrete/) das die standardmäßig defekte iGPU/dGPU-Umschaltung behebt.
-- Unterstützung für [Wallpaper Engine](https://www.wallpaperengine.io/en). <sub><sup>(Nur auf KDE)</sup></sub>
 - [ROM Properties Page shell extension](https://github.com/GerbilSoft/rom-properties) enthalten.
 - Volle Unterstützung für [Winesync/Fastsync/NTsync](https://github.com/Frogging-Family/wine-tkg-git/issues/936).
 - [Distrobox](https://github.com/89luca89/distrobox) vorinstalliert.
@@ -127,7 +126,6 @@ Diese Variante wurde für die Nutzung als Alternative zu SteamOS auf dem Steam D
 - Farbkalibrierte Anzeigeprofile für matte und spiegelnde Steam Deck-Bildschirme enthalten.
 - Standardmäßig deaktivierte Power-User-Funktionen, einschließlich:
   - Dienst für risikoarmes Undervolting des Steam Deck sowie von AMD Framework Laptops über [RyzenAdj](https://github.com/FlyGoat/RyzenAdj) und [Ryzen SMU](https://gitlab.com/leogx9r/ryzen_smu), siehe `ryzenadj.service` und `/etc/default/ryzenadj`.
-  - Dienst zur Begrenzung des maximalen Ladezustands des Akkus, siehe `batterylimit.service` und `/etc/default/batterylimit`. <sup><sub>(Funktioniert auch, wenn das Gerät ausgeschaltet ist)</sub></sup>
   - Integrierte Unterstützung für Display-Übertaktung. Füge zum Beispiel `CUSTOM_REFRESH_RATES=30-68` zu `/etc/environment` hinzu. Minimale und maximale Bildwiederholraten unterscheiden sich je nach Handheld!
   - 32GB RAM-Mod für dein Steam Deck? Genieße die doppelte maximale VRAM-Menge, automatisch angewendet. <sup><sub>(Kannst du uns deine Lötkenntnisse mitteilen?)</sub></sup>
 - Steam Deck-Hardware-spezifische Dienste können durch Ausführen von `ujust disable-bios-updates` und `ujust disable-firmware-updates` im Terminal deaktiviert werden. Diese werden auf Nicht-Deck-Hardware und auf Decks mit DeckHD-Displays oder 32GB RAM-Mods automatisch deaktiviert.
