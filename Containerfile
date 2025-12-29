@@ -77,7 +77,6 @@ RUN --mount=type=cache,dst=/var/cache \
         ublue-os/obs-vkcapture \
         ycollet/audinux \
         ublue-os/rom-properties \
-        ublue-os/webapp-manager \
         ublue-os/hhd \
         lizardbyte/beta \
         che/nerd-fonts; \
@@ -114,26 +113,6 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/install-kernel && \
     dnf5 -y config-manager setopt "*rpmfusion*".enabled=0 && \
-    dnf5 -y copr enable bieszczaders/kernel-cachyos-addons && \
-    dnf5 -y install \
-        scx-scheds \
-        scx-tools && \
-    dnf5 -y copr disable bieszczaders/kernel-cachyos-addons && \
-    declare -A toswap=( \
-        ["copr:copr.fedorainfracloud.org:ublue-os:bazzite"]="plymouth" \
-    ) && \
-    for repo in "${!toswap[@]}"; do \
-        for package in ${toswap[$repo]}; do dnf5 -y swap --repo=$repo $package $package; done; \
-    done && unset -v toswap repo package && \
-    dnf5 versionlock add \
-        plymouth \
-        plymouth-scripts \
-        plymouth-core-libs \
-        plymouth-graphics-libs \
-        plymouth-plugin-label \
-        plymouth-plugin-two-step \
-        plymouth-plugin-theme-spinner \
-        plymouth-system-theme && \
     /ctx/cleanup
 
 # Install patched fwupd
@@ -149,7 +128,7 @@ RUN --mount=type=cache,dst=/var/cache \
         pipewire-config-raop && \
     declare -A toswap=( \
         ["copr:copr.fedorainfracloud.org:ublue-os:bazzite"]="wireplumber" \
-        ["copr:copr.fedorainfracloud.org:ublue-os:bazzite-multilib"]="pipewire bluez xorg-x11-server-Xwayland" \
+        ["copr:copr.fedorainfracloud.org:ublue-os:bazzite-multilib"]="pipewire bluez xorg-x11-server-Xwayland NetworkManager" \
         ["terra-mesa"]="mesa-filesystem" \
         ["copr:copr.fedorainfracloud.org:ublue-os:staging"]="fwupd" \
     ) && \
@@ -183,7 +162,10 @@ RUN --mount=type=cache,dst=/var/cache \
         fwupd \
         fwupd-plugin-flashrom \
         fwupd-plugin-modem-manager \
-        fwupd-plugin-uefi-capsule-data && \
+        fwupd-plugin-uefi-capsule-data \
+        NetworkManager \
+        NetworkManager-wifi \
+        NetworkManager-libnm && \
     dnf5 -y install \
         mesa-va-drivers.i686 \
         libfreeaptx && \
@@ -215,6 +197,11 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=secret,id=GITHUB_TOKEN \
     dnf5 -y install \
         $(/ctx/ghcurl https://api.github.com/repos/ublue-os/cicpoffs/releases/latest | jq -r '.assets[] | select(.name| test(".*rpm$")).browser_download_url') && \
+    dnf5 -y copr enable bieszczaders/kernel-cachyos-addons && \
+    dnf5 -y install \
+        scx-scheds \
+        scx-tools && \
+    dnf5 -y copr disable bieszczaders/kernel-cachyos-addons && \
     dnf5 -y install \
         bazaar \
         iwd \
@@ -243,6 +230,7 @@ RUN --mount=type=cache,dst=/var/cache \
         lm_sensors \
         fw-ectool \
         fw-fanctrl \
+        framework-system \
         udica \
         ladspa-caps-plugins \
         ladspa-noise-suppression-for-voice \
@@ -287,8 +275,8 @@ RUN --mount=type=cache,dst=/var/cache \
         edk2-ovmf \
         qemu \
         libvirt \
+        guestfs-tools \
         virt-manager \
-        remmina \
         python3-ramalama \
         lsb_release \
         uupd \
@@ -298,14 +286,14 @@ RUN --mount=type=cache,dst=/var/cache \
         rocm-clinfo \
         waydroid \
         cage \
-        wlr-randr && \
+        wlr-randr \
+        ls-iommu && \
     systemctl mask iscsi && \
+    systemctl mask wpa_supplicant.service && \
+    systemctl disable iwd.service && \
     mkdir -p /usr/lib/extest/ && \
     /ctx/ghcurl "$(/ctx/ghcurl https://api.github.com/repos/ublue-os/extest/releases/latest | jq -r '.assets[] | select(.name| test(".*so$")).browser_download_url')" -Lo /usr/lib/extest/libextest.so && \
-    /ctx/ghcurl "$(/ctx/ghcurl https://api.github.com/repos/FrameworkComputer/framework-system/releases/latest | jq -r '.assets[] | select(.name == "framework_tool").browser_download_url')" -Lo /usr/bin/framework_tool && \
     chmod +x /usr/bin/framework_tool && \
-    /ctx/ghcurl "$(/ctx/ghcurl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')" -Lo /tmp/ls-iommu.tar.gz && \
-    mkdir -p /tmp/ls-iommu && \
     sed -i 's|uupd|& --disable-module-distrobox|' /usr/lib/systemd/system/uupd.service && \
     setcap 'cap_sys_admin+p' $(readlink -f /usr/bin/sunshine) && \
     dnf5 -y --setopt=install_weak_deps=False install \
@@ -316,9 +304,6 @@ RUN --mount=type=cache,dst=/var/cache \
     mkdir -p /etc/xdg/autostart && \
     sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh && \
     sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-launcher && \
-    tar --no-same-owner --no-same-permissions --no-overwrite-dir -xvzf /tmp/ls-iommu.tar.gz -C /tmp/ls-iommu && \
-    rm -f /tmp/ls-iommu.tar.gz && \
-    cp -r /tmp/ls-iommu/ls-iommu /usr/bin/ && \
     /ctx/cleanup
 
 # Install Steam & Lutris, plus supporting packages
@@ -347,7 +332,7 @@ RUN --mount=type=cache,dst=/var/cache \
         libobs_glcapture.x86_64 \
         libobs_vkcapture.i686 \
         libobs_glcapture.i686 \
-        VK_hdr_layer && \
+        openxr && \
     dnf5 -y --setopt=install_weak_deps=False install \
         steam \
         lutris && \
@@ -544,7 +529,6 @@ RUN --mount=type=cache,dst=/var/cache \
         ublue-os/obs-vkcapture \
         ycollet/audinux \
         ublue-os/rom-properties \
-        ublue-os/webapp-manager \
         ublue-os/hhd \
         lizardbyte/beta \
         che/nerd-fonts; \
@@ -586,6 +570,7 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 config-manager setopt skip_if_unavailable=1 && \
     /ctx/ghcurl "https://github.com/ublue-os/toolboxes/raw/refs/heads/main/apps/docker/distrobox.ini" -Lo /etc/distrobox/docker.ini && \
     /ctx/ghcurl "https://github.com/ublue-os/toolboxes/raw/refs/heads/main/apps/incus/distrobox.ini" -Lo /etc/distrobox/incus.ini && \
+    /ctx/ghcurl "https://raw.githubusercontent.com/ublue-os/bash-preexec/master/bash-preexec.sh" -Lo /usr/share/bash-prexec && \
     /ctx/image-info && \
     /ctx/build-initramfs && \
     /ctx/finalize
