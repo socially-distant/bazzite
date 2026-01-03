@@ -113,6 +113,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/install-kernel && \
     dnf5 -y config-manager setopt "*rpmfusion*".enabled=0 && \
+    rm -rf /.git && \
     /ctx/cleanup
 
 # Install patched fwupd
@@ -469,6 +470,7 @@ RUN --mount=type=cache,dst=/var/cache \
     echo "import \"/usr/share/ublue-os/just/80-bazzite.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/81-bazzite-fixes.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/82-bazzite-apps.just\"" >> /usr/share/ublue-os/justfile && \
+    echo "import \"/usr/share/ublue-os/just/82-bazzite-beesd.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/82-bazzite-cdemu.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/82-bazzite-sunshine.just\"" >> /usr/share/ublue-os/justfile && \
     echo "import \"/usr/share/ublue-os/just/82-bazzite-rmlint.just\"" >> /usr/share/ublue-os/justfile && \
@@ -542,6 +544,7 @@ RUN --mount=type=cache,dst=/var/cache \
     ln -s /usr/bin/true /usr/bin/pulseaudio && \
     mkdir -p /etc/flatpak/remotes.d && \
     curl --retry 3 -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo && \
+    systemctl enable brew-setup.service && \
     systemctl disable fw-fanctrl.service && \
     systemctl disable scx_loader.service && \
     systemctl enable input-remapper.service && \
@@ -588,7 +591,6 @@ ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG VERSION_TAG="${VERSION_TAG}"
 ARG VERSION_PRETTY="${VERSION_PRETTY}"
 
-COPY ./build_files/cleanup ./build_files/image-info ./build_files/ghcurl ./build_files/build-initramfs ./build_files/finalize /ctx/
 COPY system_files/deck/shared system_files/deck/${BASE_IMAGE_NAME} /
 
 # Setup Copr repos
@@ -658,8 +660,6 @@ RUN --mount=type=cache,dst=/var/cache \
         xorg-x11-server-Xvfb \
         python-vdf \
         python-crcmod && \
-    dnf5 -y remove \
-        ds-inhibit && \
     git clone https://github.com/bazzite-org/jupiter-dock-updater-bin.git \
         --depth 1 \
         /tmp/jupiter-dock-updater-bin && \
