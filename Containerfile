@@ -153,6 +153,7 @@ RUN --mount=type=cache,dst=/var/cache \
         bluez-libs \
         bluez-obexd \
         xorg-x11-server-Xwayland \
+        mesa-demos \
         mesa-dri-drivers \
         mesa-filesystem \
         mesa-libEGL \
