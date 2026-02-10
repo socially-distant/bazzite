@@ -102,6 +102,7 @@ RUN --mount=type=cache,dst=/var/cache \
     eval "$(/ctx/dnf5-setopt setopt '*negativo17*' priority=4 exclude='mesa-* *xone*')" && \
     dnf5 -y config-manager setopt "*rpmfusion*".priority=5 "*rpmfusion*".exclude="mesa-*" && \
     dnf5 -y config-manager setopt "*fedora*".exclude="mesa-* kernel-core-* kernel-modules-* kernel-uki-virt-*" && \
+    dnf5 -y config-manager setopt "*fedora*".includepkgs="mesa-demos*" && \
     dnf5 -y config-manager setopt "*staging*".exclude="scx-tools scx-scheds kf6-* mesa* mutter*" && \
     /ctx/cleanup
 
@@ -153,7 +154,6 @@ RUN --mount=type=cache,dst=/var/cache \
         bluez-libs \
         bluez-obexd \
         xorg-x11-server-Xwayland \
-        mesa-demos \
         mesa-dri-drivers \
         mesa-filesystem \
         mesa-libEGL \
