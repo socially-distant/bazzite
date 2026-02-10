@@ -278,6 +278,7 @@ RUN --mount=type=cache,dst=/var/cache \
         libvirt \
         guestfs-tools \
         virt-manager \
+        quickemu \
         python3-ramalama \
         lsb_release \
         uupd \
