@@ -60,7 +60,7 @@ COPY system_files/desktop/shared system_files/desktop/${BASE_IMAGE_NAME} /
 COPY firmware /
 
 # Copy Homebrew files from the brew image
-COPY --from=ghcr.io/ublue-os/brew:latest@sha256:d589a2a9e423e420dbe97de02efff1379d9a3d5ad84c1431db935cc62dc5eeb2 /system_files /
+COPY --from=ghcr.io/ublue-os/brew:latest@sha256:3efdc1a5844a7db38bb241419fef190e026fb245e9c6f6915e626276cebe5770 /system_files /
 
 # Setup Copr repos
 RUN --mount=type=cache,dst=/var/cache \
@@ -386,11 +386,11 @@ RUN --mount=type=cache,dst=/var/cache \
             plasma-discover-kns \
             kcharselect \
             kde-partitionmanager \
-            plasma-discover && \
+            plasma-discover \
+        sed -i '$r /usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/bazzite-pins.js' /usr/share/plasma/layout-templates/org.kde.plasma.desktop.defaultPanel/contents/layout.js && \
         sed -i 's@\[Desktop Action new-window\]@\[Desktop Action new-window\]\nX-KDE-Shortcuts=Ctrl+Alt+T@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i '/^Comment/d' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         sed -i 's@Exec=ptyxis@Exec=kde-ptyxis@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
-        sed -i 's@Keywords=@Keywords=konsole;console;@g' /usr/share/applications/org.gnome.Ptyxis.desktop && \
         cp /usr/share/applications/org.gnome.Ptyxis.desktop /usr/share/kglobalaccel/org.gnome.Ptyxis.desktop && \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default.jxl && \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default-dark.jxl && \
