@@ -248,7 +248,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \ 
     --mount=type=secret,id=GITHUB_TOKEN \
     dnf5 -y install \
-        $(/ctx/ghcurl https://api.github.com/repos/ublue-os/cicpoffs/releases/latest | jq -r '.assets[] | select(.name| test(".*rpm$")).browser_download_url') && \
+        $(/ctx/ghcurl https://api.github.com/repos/ublue-os/cicpoffs/releases/latest | jq -r --arg name "cicpoffs-fc${FEDORA_VERSION}.rpm" '.assets[] | select(.name == $name).browser_download_url') && \
     dnf5 -y copr enable bieszczaders/kernel-cachyos-addons && \
     dnf5 -y install \
         scx-scheds \
@@ -429,14 +429,17 @@ RUN --mount=type=cache,dst=/var/cache \
             kdeconnectd \
             kdeplasma-addons \
             rom-properties-kf6 \
+            fcitx5-chewing \
             fcitx5-mozc \
             fcitx5-chinese-addons \
             fcitx5-hangul \
+            fcitx5-m17n \
             kcm-fcitx5 \
             gnome-disk-utility \
             kio-extras \
             krunner-bazaar \
             krdc \
+            tesseract-langpack-eng \
             tesseract-langpack-spa \
             tesseract-langpack-deu \
             tesseract-langpack-jpn \
@@ -450,6 +453,8 @@ RUN --mount=type=cache,dst=/var/cache \
             tesseract-langpack-tur \
             tesseract-langpack-chi_sim \
             tesseract-langpack-chi_sim_vert \
+            tesseract-langpack-chi_tra \
+            tesseract-langpack-chi_tra_vert \
             tesseract-langpack-ces \
             tesseract-langpack-ell \
             ptyxis && \
