@@ -6,7 +6,7 @@ echo "::group::Executing build-gnome-extensions"
 trap 'echo "::endgroup::"' EXIT
 
 # Install tooling
-dnf5 -y --setopt=install_weak_deps=False install glib2-devel nodejs-npm
+dnf5 -y --setopt=install_weak_deps=False install glib2-devel nodejs22-npm
 
 # Build Extensions
 glib-compile-schemas /usr/share/gnome-shell/extensions/logomenu@aryan_k/schemas
@@ -44,5 +44,5 @@ mkdir -p /usr/share/gnome-shell/extensions/reboottouefi@ubaygd.com
 unzip -o /usr/share/gnome-shell/extensions/tmp/reboottouefi@ubaygd.com/reboottouefi@ubaygd.com-*.zip -d /usr/share/gnome-shell/extensions/reboottouefi@ubaygd.com
 
 # Cleanup
-dnf5 -y remove glib2-devel nodejs-npm
+dnf5 -y remove glib2-devel nodejs22-npm
 rm -rf /usr/share/gnome-shell/extensions/tmp
