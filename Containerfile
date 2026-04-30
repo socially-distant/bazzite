@@ -281,9 +281,17 @@ RUN --mount=type=cache,dst=/var/cache \
         podman-compose \
         podman-docker \
         edk2-ovmf \
+        qemu \
+        libvirt \
+        guestfs-tools \
+        virt-manager \
+        python3-ramalama \
         lsb_release \
         uupd \
         ds-inhibit \
+        rocm-hip \
+        rocm-opencl \
+        rocm-clinfo \
         waydroid \
         cage \
         wlr-randr \
