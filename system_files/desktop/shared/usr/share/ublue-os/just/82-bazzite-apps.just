@@ -262,6 +262,8 @@ install-jetbrains-toolbox:
     fi
     jetbrains-toolbox &> /dev/null &
 
+alias install-steamcmd := get-steamcmd
+
 # Install SteamCMD (https://developer.valvesoftware.com/wiki/SteamCMD). Options: status | install | uninstall
 [group("gaming")]
 get-steamcmd ACTION="":
@@ -462,6 +464,8 @@ install-openrazer ACTION="":
         exit 0
     fi
 
+alias install-emudeck := get-emudeck
+
 # Install EmuDeck (https://www.emudeck.com/). Options: status | install | uninstall
 [group("gaming")]
 get-emudeck ACTION="":
@@ -529,6 +533,8 @@ get-emudeck ACTION="":
         esac
         exit 0
     fi
+
+alias install-openrgb := openrgb
 
 # Manage OpenRGB (https://openrgb.org/). Options: status | install | uninstall
 [group("hardware")]
@@ -686,6 +692,8 @@ install-boxtron ACTION="":
         exit 0
     fi
 
+alias install-resilio-sync := resilio-sync
+
 # Manage Resilio Sync, a file synchronization utility powered by BitTorrent. Options: status | install | uninstall
 resilio-sync ACTION="":
     #!/usr/bin/bash
@@ -757,6 +765,8 @@ resilio-sync ACTION="":
         exit 0
     fi
 
+alias install-opentabletdriver := opentabletdriver
+
 # Manage OpenTabletDriver, an open source, cross-platform, user-mode tablet driver. Options: status | install | uninstall
 [group("hardware")]
 opentabletdriver ACTION="":
@@ -780,7 +790,7 @@ opentabletdriver ACTION="":
     install_opentabletdriver() {
         echo "Installing OpenTabletDriver..."
         curl -s https://api.github.com/repos/OpenTabletDriver/OpenTabletDriver/releases/latest \
-        | jq -r '.assets | sort_by(.created_at) | .[] | select (.name|test("opentabletdriver.*tar.gz$")) | .browser_download_url' \
+        | jq -r '.assets | sort_by(.created_at) | .[] | select (.name|test("opentabletdriver.*linux.*binary.*tar.gz$")) | .browser_download_url' \
         | wget -qi - -O /tmp/OpenTabletDriver/opentabletdriver.tar.gz && \
         tar --strip-components=1 -xvzf /tmp/OpenTabletDriver/opentabletdriver.tar.gz -C /tmp/OpenTabletDriver && \
         sudo cp /tmp/OpenTabletDriver/etc/udev/rules.d/70-opentabletdriver.rules /etc/udev/rules.d/71-opentabletdriver.rules && \

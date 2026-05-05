@@ -111,6 +111,8 @@ toggle-bt-mic ACTION="":
       echo "No changes were made."
     fi
 
+alias toggle-wol := wol
+
 # Manage wake-on-lan functionality. Options: status | enable | disable | force-enable
 wol ACTION="":
     #!/usr/bin/bash
@@ -200,6 +202,8 @@ wol ACTION="":
     else
       echo "No changes were made."
     fi
+
+alias toggle-iwd := iwd
 
 # Manage IWD as a replacement for wpa_supplicant. Options: status | enable | disable
 [group("network")]
@@ -600,6 +604,8 @@ steam-icons ACTION="":
       echo "Invalid choice. Exiting without changes."
       ;;
     esac
+
+alias toggle-cec-sleep := cec-sleep
 
 # Manage CEC_ONSLEEP_STANDBY - Controls whether TV goes to standby when system sleeps. Options: status | enable | disable
 cec-sleep ACTION="":
